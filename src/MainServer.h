@@ -5,4 +5,8 @@
 
 extern WebServer mainServer;  
 
+void setupSTAServer();
+void handleAPServer();
+
+
 #endif
