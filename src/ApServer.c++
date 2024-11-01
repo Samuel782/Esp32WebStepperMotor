@@ -1,10 +1,8 @@
-#include "APServer.h"
+#include "ApServer.h"
 
-WebServer serverAP(80);
-Preferences preferences;
+WebServer serverAP(80);  
 
-// Funzione che genera la pagina HTML dinamica
-String generateMainPage()
+String generateApPage()
 {
     String html = R"rawliteral(
     <!DOCTYPE html>
@@ -75,14 +73,12 @@ String generateMainPage()
                 <select name='ssid'>
     )rawliteral";
 
-    // Scansione delle reti Wi-Fi e aggiunta delle opzioni
     int n = WiFi.scanNetworks();
     for (int i = 0; i < n; ++i)
     {
         html += "<option value='" + WiFi.SSID(i) + "'>" + WiFi.SSID(i) + "</option>";
     }
 
-    // Continuazione del codice HTML
     html += R"rawliteral(
                 </select>
                 <label for='password'>Password:</label>
@@ -99,27 +95,25 @@ String generateMainPage()
 
 void setupAPServer()
 {
-    // Configura il server e la risposta alla richiesta principale
     serverAP.on("/", []()
-                { serverAP.send(200, "text/html", generateMainPage()); });
+                { serverAP.send(200, "text/html", generateApPage()); });
 
     serverAP.on("/connect", HTTP_POST, []()
                 {
                     String ssid = serverAP.arg("ssid");
                     String password = serverAP.arg("password");
 
-                    // Salvataggio delle credenziali nella memoria flash
                     preferences.putString("ssid", ssid);
                     preferences.putString("password", password);
 
                     serverAP.send(200, "text/html", "<h1>Connessione in corso... Riavvio in corso</h1>");
                     delay(2000);
-                    ESP.restart(); // Riavvio per attivare la connessione Wi-Fi
+                    ESP.restart();
                 });
 
-    // Avvia il server
     serverAP.begin();
 }
+
 void handleAPServer()
 {
     serverAP.handleClient();

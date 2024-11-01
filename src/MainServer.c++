@@ -104,6 +104,6 @@ void setupSTAServer() {
     mainServer.begin();
 }
 
-void handleAPServer() {
+void handleSTAServer() {
     mainServer.handleClient();
 }

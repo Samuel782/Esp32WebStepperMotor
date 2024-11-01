@@ -1,3 +1,5 @@
+#include "stepper.h"
+
 const int DIR = 12;
 const int STEP = 14;
 

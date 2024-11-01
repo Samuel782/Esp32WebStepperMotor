@@ -4,9 +4,11 @@
 #include <WebServer.h>
 #include <Preferences.h>
 
-extern WebServer serverAP;  // Dichiarazione del server dell'AP
+extern WebServer serverAP;    // Dichiarazione del server dell'AP
+extern Preferences preferences;  // Dichiarazione di `preferences` come extern
 
-void setupAPServer();       // Funzione per configurare il server dell'AP
-void handleAPServer();      // Funzione per gestire le richieste del server
+String generateApPage();
+void setupAPServer();         // Funzione per configurare il server dell'AP
+void handleAPServer();        // Funzione per gestire le richieste del server
 
 #endif

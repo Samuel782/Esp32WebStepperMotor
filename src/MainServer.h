@@ -5,8 +5,8 @@
 
 extern WebServer mainServer;  
 
+String generateMainPage(); 
 void setupSTAServer();
-void handleAPServer();
-
+void handleSTAServer();
 
 #endif
